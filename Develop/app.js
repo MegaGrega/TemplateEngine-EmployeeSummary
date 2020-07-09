@@ -13,9 +13,9 @@ const render = require("./lib/htmlRenderer");
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
+var count = 0
+const teamArr = []
 function init() {
-    var count = 0
-    const team = []
     inquirer
         .prompt([
             {
@@ -31,6 +31,18 @@ function init() {
             if (response.choice === "New Employee") {
                 count ++
                 employeeChoice()
+            }
+            if (response.choice === "Render") {
+                fs.writeFile(outputPath, render(teamArr), function(err) {
+
+                    if (err) {
+                      return console.log(err);
+                    }
+                  
+                    console.log("Success!");
+                  
+                  });
+                
             }
         })
 }
@@ -79,7 +91,8 @@ function internPrompt() {
         ]).then(function (response) {
             //Create new intern based off of parameters
             //Store it in an array
-            console.log(response.name)
+            teamArr.push(new Intern(response.name, count, response.email,response.school))
+            init();
         })
 }
 
@@ -104,7 +117,8 @@ function engineerPrompt() {
         ]).then(function (response) {
             //Create new engineer based off of parameters
             //Store it in an array
-            console.log(response.name)
+            teamArr.push(new Engineer(response.name, count, response.email,response.github))
+            init();
         })
 }
 
@@ -129,7 +143,8 @@ function managerPrompt() {
         ]).then(function (response) {
             //Create new egineer based off of parameters
             //Store it in an array
-            console.log(response.name)
+            teamArr.push(new Manager(response.name, count, response.email,response.officeNumber))
+            init();
         })
 }
 
