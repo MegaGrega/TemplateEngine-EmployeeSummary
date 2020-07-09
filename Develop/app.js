@@ -13,6 +13,130 @@ const render = require("./lib/htmlRenderer");
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
+function init() {
+    var count = 0
+    const team = []
+    inquirer
+        .prompt([
+            {
+                type: "list",
+                message: "What would you like to do next?",
+                choices: ["New Employee", "Render", "Quit"],
+                name: "choice"
+            }
+        ]).then(function (response) {
+            if (response.choice === "Quit") {
+                console.log("Goodbye")
+            }
+            if (response.choice === "New Employee") {
+                count ++
+                employeeChoice()
+            }
+        })
+}
+
+
+function employeeChoice() {
+    inquirer
+        .prompt([
+            {
+                type: "list",
+                message: "What type of Employee?",
+                choices: ["Engineer", "Manager", "Intern"],
+                name: "choice"
+            }
+        ]).then(function (response) {
+            if (response.choice === "Engineer") {
+                engineerPrompt()
+            }
+            if (response.choice === "Manager") {
+                managerPrompt()
+            }
+            if (response.choice === "Intern") {
+                internPrompt()
+            }
+        })
+}
+
+function internPrompt() {
+    inquirer
+        .prompt([
+            {
+                type: "input",
+                message: "What is their name?",
+                name: "name"
+            },
+            {
+                type: "input",
+                message: "What is their email?",
+                name: "email"
+            },
+            {
+                type: "input",
+                message: "What is their school?",
+                name: "school"
+            }
+        ]).then(function (response) {
+            //Create new intern based off of parameters
+            //Store it in an array
+            console.log(response.name)
+        })
+}
+
+function engineerPrompt() {
+    inquirer
+        .prompt([
+            {
+                type: "input",
+                message: "What is their name?",
+                name: "name"
+            },
+            {
+                type: "input",
+                message: "What is their email?",
+                name: "email"
+            },
+            {
+                type: "input",
+                message: "What is their github username?",
+                name: "github"
+            }
+        ]).then(function (response) {
+            //Create new engineer based off of parameters
+            //Store it in an array
+            console.log(response.name)
+        })
+}
+
+function managerPrompt() {
+    inquirer
+        .prompt([
+            {
+                type: "input",
+                message: "What is their name?",
+                name: "name"
+            },
+            {
+                type: "input",
+                message: "What is their email?",
+                name: "email"
+            },
+            {
+                type: "input",
+                message: "What is their Office Number?",
+                name: "officeNumber"
+            }
+        ]).then(function (response) {
+            //Create new egineer based off of parameters
+            //Store it in an array
+            console.log(response.name)
+        })
+}
+
+init();
+
+
+
 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
